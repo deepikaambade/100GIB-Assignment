@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>RGB Calculator</title>
+  <style>
+    body {
+      background-color: #000;
+    }
+
+    .calculator {
+      width: 300px;
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin: 0 auto;
+      background-color: #111;
+    }
+
+    .screen {
+      width: 100%;
+      height: 40px;
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+      text-align: right;
+      padding: 5px;
+      box-sizing: border-box;
+      background-color: #222;
+      color: #fff;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-gap: 5px;
+    }
+
+    .button {
+      background-color: #333;
+      border: none;
+      padding: 10px;
+      text-align: center;
+      cursor: pointer;
+      color: #fff;
+      font-weight: bold;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+      transition: background-color 0.3s;
+    }
+
+    .button:hover {
+      background-color: #666;
+    }
+
+    .button:focus {
+      outline: none;
+      background-color: #666;
+    }
+
+    .button.active {
+      background-color: #00ff00; /* Green glow */
+      box-shadow: 0 0 10px rgba(0, 255, 0, 0.8);
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <div class="screen" id="screen"></div>
+    <div class="buttons">
+      <div class="button" onclick="addToScreen('7')">7</div>
+      <div class="button" onclick="addToScreen('8')">8</div>
+      <div class="button" onclick="addToScreen('9')">9</div>
+      <div class="button" onclick="addToScreen('+')">+</div>
+      <div class="button" onclick="addToScreen('4')">4</div>
+      <div class="button" onclick="addToScreen('5')">5</div>
+      <div class="button" onclick="addToScreen('6')">6</div>
+      <div class="button" onclick="addToScreen('-')">-</div>
+      <div class="button" onclick="addToScreen('1')">1</div>
+      <div class="button" onclick="addToScreen('2')">2</div>
+      <div class="button" onclick="addToScreen('3')">3</div>
+      <div class="button" onclick="addToScreen('*')">*</div>
+      <div class="button" onclick="addToScreen('0')">0</div>
+      <div class="button" onclick="addToScreen('.')">.</div>
+      <div class="button" onclick="calculate()">=</div>
+      <div class="button" onclick="addToScreen('/')">/</div>
+    </div>
+    <div class="buttons">
+      <div class="button" onclick="clearScreen()">Clear Display</div>
+    </div>
+  </div>
+
+  <script>
+    let screen = document.getElementById('screen');
+
+    function addToScreen(value) {
+      screen.textContent += value;
+    }
+
+    function calculate() {
+      try {
+        let result = eval(screen.textContent);
+        screen.textContent = result;
+      } catch (error) {
+        screen.textContent = 'Error';
+      }
+    }
+
+    function clearScreen() {
+      screen.textContent = '';
+    }
+
+    // Add event listener to add/remove "active" class on button click
+    let buttons = document.getElementsByClassName('button');
+    for (let i = 0; i < buttons.length; i++) {
+      buttons[i].addEventListener('click', function() {
+        buttons[i].classList.add('active');
+        setTimeout(function() {
+          buttons[i].classList.remove('active');
+        }, 300);
+      });
+    }
+  </script>
+</body>
+</html>
